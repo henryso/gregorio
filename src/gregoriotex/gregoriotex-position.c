@@ -1580,6 +1580,11 @@ static __inline int compute_fused_shift(const gregorio_glyph *glyph)
     gregorio_assert(shift >= -MAX_AMBITUS && shift <= MAX_AMBITUS,
             compute_fused_shift, "ambitus too large to fuse", return 0);
 
+    /* if we're made it this far, it's a fusion at the unison */
+    if (shift == 0) {
+        shift = FUSE_AT_UNISON;
+    }
+
     if (shift > 0 && previous->u.notes.glyph_type == G_VIRGA_REVERSA) {
         /* virga reversa cannot fuse upwards */
         return 0;

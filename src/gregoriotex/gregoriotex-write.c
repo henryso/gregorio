@@ -67,8 +67,9 @@ typedef struct gregoriotex_status {
 #define UNDETERMINED_HEIGHT -127
 
 #define MAX_AMBITUS 5
+#define UNISON_AMBITUS 6
 static const char *tex_ambitus[] = {
-    "", "One", "Two", "Three", "Four", "Five"
+    "", "One", "Two", "Three", "Four", "Five", "Zero"
 };
 
 #define SHAPE(NAME) static const char *const SHAPE_##NAME = #NAME
@@ -358,6 +359,7 @@ static const char *compute_glyph_name(const gregorio_glyph *const glyph,
             }
         } else if (fuse_from_previous_note > 0) {
             if (fuse_from_previous_note > 1) {
+                /* includes FUSE_AT_UNISON */
                 fuse_head = FUSE_Upper;
             } else if (glyph->u.notes.first_note->u.note.shape
                     == S_ORISCUS_ASCENDENS
@@ -384,7 +386,10 @@ static const char *compute_glyph_name(const gregorio_glyph *const glyph,
     case G_VIRGA_REVERSA:
     case G_PUNCTUM:
         /* tail-fusible */
-        if (fuse_to_next_note < 0) {
+        if (fuse_to_next_note == FUSE_AT_UNISON) {
+            fuse_tail = FUSE_Down;
+            fuse_ambitus = UNISON_AMBITUS;
+        } else if (fuse_to_next_note < 0) {
             fuse_tail = FUSE_Down;
             fuse_ambitus = -fuse_to_next_note;
         } else if (fuse_to_next_note > 0) {
@@ -2058,7 +2063,7 @@ static void write_punctum_mora(FILE *f, const gregorio_glyph *glyph,
     /* use a special no-space punctum mora for ascending fusion */
     if (fuse_to_next_note) {
         no_space = 1;
-        if (fuse_to_next_note > 0) {
+        if (fuse_to_next_note > 0 && fuse_to_next_note != FUSE_AT_UNISON) {
             special_punctum = 1;
         }
     }

@@ -69,7 +69,9 @@ statement from your version."""
 # the more glyphs you'll have to generate
 MAX_INTERVAL = 5
 ALL_AMBITUS = range(1, MAX_INTERVAL + 1)
+EXT_AMBITUS = range(0, MAX_INTERVAL + 1)
 AMBITUS_ONE_ONLY = [ 1 ]
+AMBITUS_ZERO_AND_ONE = [ 0, 1 ]
 
 # this dictionary must have a value for 0 to 14 (the maximum overall ambitus)
 AMBITUS = {
@@ -2634,48 +2636,52 @@ def fusion():
             S_DESCENDENS_ORISCUS_SCAPUS_OPENQUEUE, L_UP, qtype='open',
             stemshape=S_FLEXUS_ORISCUS_SCAPUS)
     write_all_fusion_leading('AscendensOriscusLineBR', S_ASCENDENS_ORISCUS,
-            L_DOWN)
+            L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading('DescendensOriscusLineBR', S_DESCENDENS_ORISCUS,
-            L_DOWN)
+            L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading('AscendensOriscusLineBLBR',
-            S_UPPER_ASCENDENS_ORISCUS, L_DOWN)
+            S_UPPER_ASCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading(FLATTENED_ORISCUS['AscendensOriscusLineBRFlatBottom'],
-            S_UPPER_OBLATUS_ASCENDENS_ORISCUS, L_DOWN)
+            S_UPPER_OBLATUS_ASCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading('DescendensOriscusLineBLBR',
-            S_UPPER_DESCENDENS_ORISCUS, L_DOWN)
+            S_UPPER_DESCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading('AscendensOriscusLineTLBR',
-            S_LOWER_ASCENDENS_ORISCUS, L_DOWN)
+            S_LOWER_ASCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading('DescendensOriscusLineTLBR',
-            S_LOWER_DESCENDENS_ORISCUS, L_DOWN)
+            S_LOWER_DESCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading(FLATTENED_ORISCUS['DescendensOriscusLineBRFlatTop'],
-            S_LOWER_OBLATUS_DESCENDENS_ORISCUS, L_DOWN)
+            S_LOWER_OBLATUS_DESCENDENS_ORISCUS, L_DOWN, i_range=EXT_AMBITUS)
     write_all_fusion_leading("AscendensOriscusLineBLBR",
             S_ASCENDENS_ORISCUS_SCAPUS, L_DOWN, qtype='short',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=EXT_AMBITUS)
     write_all_fusion_leading("AscendensOriscusLineBLBR",
             S_ASCENDENS_ORISCUS_SCAPUS_LONGQUEUE, L_DOWN, qtype='long',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
-    write_fusion_leading(1, "AscendensOriscusLineBLBR",
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=EXT_AMBITUS)
+    write_all_fusion_leading("AscendensOriscusLineBLBR",
             S_ASCENDENS_ORISCUS_SCAPUS_OPENQUEUE, L_DOWN, qtype='open',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=AMBITUS_ZERO_AND_ONE)
     write_all_fusion_leading("DescendensOriscusLineBLBR",
             S_DESCENDENS_ORISCUS_SCAPUS, L_DOWN, qtype='short',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=EXT_AMBITUS)
     write_all_fusion_leading("DescendensOriscusLineBLBR",
             S_DESCENDENS_ORISCUS_SCAPUS_LONGQUEUE, L_DOWN, qtype='long',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
-    write_fusion_leading(1, "DescendensOriscusLineBLBR",
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=EXT_AMBITUS)
+    write_all_fusion_leading("DescendensOriscusLineBLBR",
             S_DESCENDENS_ORISCUS_SCAPUS_OPENQUEUE, L_DOWN, qtype='open',
-            stemshape=S_FLEXUS_ORISCUS_SCAPUS)
-    write_all_fusion_leading('PunctumLineBR', S_PUNCTUM, L_DOWN)
-    write_all_fusion_leading('PunctumLineBLBR', S_UPPER_PUNCTUM, L_DOWN)
-    write_all_fusion_leading('mademinutus', S_LOWER_PUNCTUM, L_DOWN)
+            stemshape=S_FLEXUS_ORISCUS_SCAPUS, i_range=AMBITUS_ZERO_AND_ONE)
+    write_all_fusion_leading('PunctumLineBR', S_PUNCTUM, L_DOWN,
+            i_range=EXT_AMBITUS)
+    write_all_fusion_leading('PunctumLineBLBR', S_UPPER_PUNCTUM, L_DOWN,
+            i_range=EXT_AMBITUS)
+    write_all_fusion_leading('mademinutus', S_LOWER_PUNCTUM, L_DOWN,
+            i_range=EXT_AMBITUS)
     write_all_fusion_leading('VirgaBaseLineBL', S_VIRGA_REVERSA, L_DOWN,
-            qtype='short', stemshape=S_FLEXUS)
+            qtype='short', stemshape=S_FLEXUS, i_range=EXT_AMBITUS)
     write_all_fusion_leading('VirgaBaseLineBL', S_VIRGA_REVERSA_LONGQUEUE,
-            L_DOWN, qtype='long', stemshape=S_FLEXUS)
-    write_fusion_leading(1, 'VirgaBaseLineBL', S_VIRGA_REVERSA_OPENQUEUE,
-            L_DOWN, qtype='open', stemshape=S_FLEXUS)
+            L_DOWN, qtype='long', stemshape=S_FLEXUS, i_range=EXT_AMBITUS)
+    write_all_fusion_leading('VirgaBaseLineBL', S_VIRGA_REVERSA_OPENQUEUE,
+            L_DOWN, qtype='open', stemshape=S_FLEXUS,
+            i_range=AMBITUS_ZERO_AND_ONE)
 
 # lique is only for initio debilis here
 def write_all_fusion_leading(first_glyph, glyph_type, lique, qtype=None,
@@ -2726,10 +2732,13 @@ def write_fusion_leading(i, first_glyph, glyph_type, lique, qtype=None,
         elif first_glyph == 'VirgaBaseLineBL':
             first_glyph = 'rvirgabase'
     length = get_width(first_glyph) + length
-    if qtype:
+    if i !=0 and qtype:
         draw_left_queue(i, qtype, stemshape, lique)
     paste_glyph(first_glyph)
-    if i != 1:
+    if i == 0:
+        paste_and_move('UnisonConnector', '', length, 0)
+        length += get_width('UnisonConnector') - get_width('line2')
+    elif i != 1:
         if lique == L_UP or lique == L_INITIO_DEBILIS_UP:
             draw_line(i, length, FONT_CONFIG['base height'])
         elif lique == L_DOWN:

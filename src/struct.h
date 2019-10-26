@@ -803,6 +803,8 @@ static __inline bool is_fused(char liquescentia)
 
 #define NO_PITCH -128
 
+#define FUSE_AT_UNISON 127
+
 /* defines the maximal interval between two notes of the same glyph */
 #define MAX_AMBITUS 5
 
